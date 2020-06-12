@@ -1,5 +1,21 @@
 import requests
 import json
+import psycopg2
+
+def connect():
+    
+    try:
+
+        conn = psycopg2.connect("host='127.0.0.1' dbname='checkpoint' user='postgres' password='postgres'")
+        conn.autocommit = True
+        cur = conn.cursor()
+
+        return conn, cur
+
+    except Exception as e:
+
+        print('[FAILED] Response returned status: {}'.format(e))
+
 
 def searchTasks(id):
 
@@ -16,8 +32,10 @@ def searchTasks(id):
 
 def main():
 
+    conn, cur = connect()
     url = 'https://api.clubhouse.io/api/v2/projects/2/stories?token=code-here'
     res = requests.get(url)
+    cur.execute('TRUNCATE goals;')
 
     if res.status_code == 200:
         data = res.json()
@@ -27,7 +45,7 @@ def main():
             for line in data:
 
                 nameStorie = line['name']
-                startStorie = line['started_at']
+                startStorie = line['created_at']
                 statusStorie = line['completed']
                 endStorie = line['completed_at']
                 category = line['labels'][0]['name']
@@ -44,7 +62,16 @@ def main():
                 oneHundred = searchTasks(line['id'])['tasks'][3]['description']
                 statusOneHundred = searchTasks(line['id'])['tasks'][3]['complete']
 
-                print("'{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}'".format(nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category))
+                if endStorie is None:
+
+                    cur.execute('''INSERT INTO goals (nameStorie,startStorie,statusStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');'''.format(
+                    nameStorie,startStorie,statusStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category))
+                
+                else:
+
+                    cur.execute('''INSERT INTO goals (nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');'''.format(
+                    nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category))
+
 
         except IndexError:
 
@@ -53,6 +80,8 @@ def main():
     else:
 
         print('[FAILED] Response returned status: {}'.format(res.status_code))
+
+    conn.close()
 
 if __name__ == "__main__":
     main()
