@@ -32,6 +32,7 @@ def searchTasks(id):
 
 def main():
 
+    print("[INFO] Start script ***************************************************")
     conn, cur = connect()
     url = 'https://api.clubhouse.io/api/v2/projects/2/stories?token=code-here'
     res = requests.get(url)
@@ -40,9 +41,9 @@ def main():
     if res.status_code == 200:
         data = res.json()
 
-        try:
+        for line in data:
 
-            for line in data:
+            try:
 
                 nameStorie = line['name']
                 startStorie = line['created_at']
@@ -66,22 +67,27 @@ def main():
 
                     cur.execute('''INSERT INTO goals (nameStorie,startStorie,statusStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');'''.format(
                     nameStorie,startStorie,statusStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category))
+
+                    cur.execute('''INSERT INTO goals_history (nameStorie,startStorie,statusStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');'''.format(
+                    nameStorie,startStorie,statusStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category))
                 
                 else:
 
                     cur.execute('''INSERT INTO goals (nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');'''.format(
                     nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category))
 
+                    cur.execute('''INSERT INTO goals_history (nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');'''.format(
+                    nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category))
 
-        except IndexError:
-
-            pass
-
+            except IndexError:
+                print("[FAILED] Storie {}".format(nameStorie))
+                pass
     else:
 
         print('[FAILED] Response returned status: {}'.format(res.status_code))
 
     conn.close()
+    print("[OK] End script *******************************************************")
 
 if __name__ == "__main__":
     main()
