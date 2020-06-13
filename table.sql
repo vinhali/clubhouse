@@ -12,7 +12,8 @@ seventyFive int,
 statusSeventyFive BOOLEAN,
 oneHundred int,
 statusOneHundred BOOLEAN,
-category varchar
+category varchar,
+status varchar
 );
 
 create table goals_history(
@@ -29,5 +30,6 @@ seventyFive int,
 statusSeventyFive BOOLEAN,
 oneHundred int,
 statusOneHundred BOOLEAN,
-category varchar
+category varchar,
+status varchar
 );
