@@ -1176,7 +1176,13 @@
       "type": "text"
     },
     {
-      "aliasColors": {},
+      "aliasColors": {
+        "0%": "#E02F44",
+        "100%": "#8AB8FF",
+        "25%": "#FFB357",
+        "50%": "#FFEE52",
+        "75%": "#96D98D"
+      },
       "breakPoint": "50%",
       "cacheTimeout": null,
       "combine": {
@@ -1301,7 +1307,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\n    now() as Time,\n    count(*) filter(where statusstorie = false and statusTwentyFive in ('true'))  \"25%\",\n    count(*) filter(where statusstorie = false and statusFifty in ('true')) \"50%\",\n    count(*) filter(where statusstorie = false and statusSeventyFive in ('true')) \"75%\",\n    count(*) filter(where statusstorie = false and statusOneHundred in ('true')) \"100%\"\nfrom goals ",
+          "rawSql": "select\n    now() as Time,\n    count(*) filter(where statusstorie = false \n    and statusTwentyFive in ('false')\n    and statusFifty in ('false')  \n    and statusSeventyFive in ('false') \n    and statusOneHundred in ('false'))  \"0%\",\n    count(*) filter(where statusstorie = false and statusTwentyFive in ('true'))  \"25%\",\n    count(*) filter(where statusstorie = false and statusFifty in ('true')) \"50%\",\n    count(*) filter(where statusstorie = false and statusSeventyFive in ('true')) \"75%\",\n    count(*) filter(where statusstorie = false and statusOneHundred in ('true')) \"100%\"\nfrom goals ",
           "refId": "A",
           "select": [
             [
@@ -1371,5 +1377,5 @@
   "timezone": "utc",
   "title": "Goals",
   "uid": "mbsZ9YiMk",
-  "version": 41
+  "version": 42
 }
