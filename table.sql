@@ -1,5 +1,7 @@
+create database checkpoint;
+
 create table goals(
-id serial primary key,
+id int primary key,
 nameStorie varchar,
 startStorie timestamp,
 statusStorie BOOLEAN,
@@ -17,7 +19,7 @@ status varchar
 );
 
 create table goals_history(
-id serial primary key,
+id int primary key,
 nameStorie varchar,
 startStorie timestamp,
 statusStorie BOOLEAN,
@@ -32,4 +34,12 @@ oneHundred int,
 statusOneHundred BOOLEAN,
 category varchar,
 status varchar
+);
+
+create table exception(
+	id int primary key,
+	category varchar,
+	reason varchar,
+	justified boolean,
+	date_insert timestamp
 );
