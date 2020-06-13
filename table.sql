@@ -37,9 +37,9 @@ status varchar
 );
 
 create table exception(
-	id int primary key,
-	category varchar,
-	reason varchar,
-	justified boolean,
-	date_insert timestamp
+id int primary key,
+category varchar,
+reason varchar,
+justified boolean,
+date_insert timestamp
 );
