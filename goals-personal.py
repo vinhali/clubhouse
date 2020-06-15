@@ -36,7 +36,7 @@ def main():
     conn, cur = connect()
     url = 'https://api.clubhouse.io/api/v2/projects/2/stories?token=code-here'
     res = requests.get(url)
-    cur.execute('TRUNCATE goals;')
+    cur.execute('''delete from goals where space = 'personal';''')
 
     if res.status_code == 200:
         data = res.json()
