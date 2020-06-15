@@ -45,6 +45,7 @@ def main():
 
             try:
 
+                space = 'personal'
                 idStorie = line['id']
                 nameStorie = line['name']
                 startStorie = line['created_at']
@@ -75,19 +76,19 @@ def main():
 
                 if endStorie is None:
 
-                    cur.execute('''INSERT INTO goals (id,nameStorie,startStorie,statusStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');'''.format(
-                    idStorie,nameStorie,startStorie,statusStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status))
+                    cur.execute('''INSERT INTO goals (id,nameStorie,startStorie,statusStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status,space) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');'''.format(
+                    idStorie,nameStorie,startStorie,statusStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status,space))
 
-                    cur.execute('''INSERT INTO goals_history (id,nameStorie,startStorie,statusStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');'''.format(
-                    idStorie,nameStorie,startStorie,statusStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status))
+                    cur.execute('''INSERT INTO goals_history (id,nameStorie,startStorie,statusStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status,space) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');'''.format(
+                    idStorie,nameStorie,startStorie,statusStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status,space))
                 
                 else:
 
-                    cur.execute('''INSERT INTO goals (id,nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');'''.format(
-                    idStorie,nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status))
+                    cur.execute('''INSERT INTO goals (id,nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status,space) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');'''.format(
+                    idStorie,nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status,space))
 
-                    cur.execute('''INSERT INTO goals_history (id,nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');'''.format(
-                    idStorie,nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status))
+                    cur.execute('''INSERT INTO goals_history (id,nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status,space) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');'''.format(
+                    idStorie,nameStorie,startStorie,statusStorie,endStorie,twentyFive,statusTwentyFive,fifty,statusFifty,seventyFive,statusSeventyFive,oneHundred,statusOneHundred,category,status,space))
 
             except IndexError:
                 print("[FAILED] Storie {}".format(nameStorie))
