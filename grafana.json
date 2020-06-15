@@ -102,7 +102,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT count(*) FROM goals WHERE statusstorie = false",
+          "rawSql": "SELECT count(*) FROM goals WHERE statusstorie = false and space = 'personal'",
           "refId": "A",
           "select": [
             [
@@ -199,7 +199,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT count(*) FROM goals WHERE statusstorie = false and status = 'highlight'",
+          "rawSql": "SELECT count(*) FROM goals WHERE statusstorie = false and status = 'highlight' and space = 'personal'",
           "refId": "A",
           "select": [
             [
@@ -300,7 +300,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT count(*) FROM goals WHERE statusstorie = True",
+          "rawSql": "SELECT count(*) FROM goals WHERE statusstorie = True and space = 'personal'",
           "refId": "A",
           "select": [
             [
@@ -401,7 +401,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\n    avg((category = 'objetivo' and statusstorie = false)::int) metrics\nfrom goals ",
+          "rawSql": "select\n    avg((category = 'objetivo' and statusstorie = false and space = 'personal')::int) metrics\nfrom goals ",
           "refId": "A",
           "select": [
             [
@@ -481,7 +481,7 @@
         "x": 16,
         "y": 1
       },
-      "id": 12,
+      "id": 35,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -502,7 +502,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\n    avg((category not in ('objetivos') and statusstorie = false )::int) \"Backlog\"\nfrom goals ",
+          "rawSql": "select\n    avg((category not in ('objetivos') and statusstorie = false and space = 'personal')::int) \"Backlog\"\nfrom goals ",
           "refId": "A",
           "select": [
             [
@@ -604,7 +604,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\n    avg((category not in ('justified') and category in ('failed') and statusstorie = true )::int) \"Backlog\"\nfrom goals ",
+          "rawSql": "select\n    avg((category not in ('justified') and category in ('failed') and statusstorie = true and space = 'personal')::int) \"Backlog\"\nfrom goals ",
           "refId": "A",
           "select": [
             [
@@ -738,7 +738,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\n    count(*) filter(where statusTwentyFive in ('true')) as \"Started\",\n    count(*) filter(where statusTwentyFive in ('false')) as \"Not Started\"\nfrom goals ",
+          "rawSql": "select\n    count(*) filter(where statusTwentyFive in ('true') and space = 'personal') as \"Started\",\n    count(*) filter(where statusTwentyFive in ('false') and space = 'personal') as \"Not Started\"\nfrom goals ",
           "refId": "B",
           "select": [
             [
@@ -886,7 +886,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\n    count(*) filter(where statusstorie = false and category not in ('objetivos'))  \"No Prioritized\",\n    count(*) filter(where statusstorie = false and category in ('objetivos')) \"Prioritized\"\nfrom goals ",
+          "rawSql": "select\n    count(*) filter(where statusstorie = false and category not in ('objetivos') and space = 'personal')  \"No Prioritized\",\n    count(*) filter(where statusstorie = false and category in ('objetivos') and space = 'personal') \"Prioritized\"\nfrom goals ",
           "refId": "A",
           "select": [
             [
@@ -1046,7 +1046,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\n    count(*) filter(where startStorie <= date_trunc('month', now()) - interval '1 month')  \"1 month\",\n    count(*) filter(where startStorie <= date_trunc('month', now()) - interval '3 month')  \"3 month\",\n    count(*) filter(where startStorie <= date_trunc('month', now()) - interval '6 month')  \"6 month\"\nfrom goals ",
+          "rawSql": "select\n    count(*) filter(where startStorie <= date_trunc('month', now()) - interval '1 month' and space = 'personal')  \"1 month\",\n    count(*) filter(where startStorie <= date_trunc('month', now()) - interval '3 month' and space = 'personal')  \"3 month\",\n    count(*) filter(where startStorie <= date_trunc('month', now()) - interval '6 month' and space = 'personal')  \"6 month\"\nfrom goals ",
           "refId": "A",
           "select": [
             [
@@ -1207,7 +1207,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\n    now() as Time,\n    category,\n    count(category) filter(where statusstorie = false)  stories\nfrom goals \ngroup by category\norder by stories desc",
+          "rawSql": "select\n    now() as Time,\n    category,\n    count(category) filter(where statusstorie = false and space = 'personal')  stories\nfrom goals \ngroup by category\norder by stories desc",
           "refId": "A",
           "select": [
             [
@@ -1368,7 +1368,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\n    now() as Time,\n    count(*) \n    filter(\n    where statusstorie = false \n    and statusTwentyFive = false\n    and statusFifty = false  \n    and statusSeventyFive = false \n    and statusOneHundred = false\n    and category not in ('metas'))  \"0%\",\n    count(*) filter(where statusstorie = false and statusTwentyFive = true and category not in ('metas'))  \"25%\",\n    count(*) filter(where statusstorie = false and statusFifty = true and category not in ('metas')) \"50%\",\n    count(*) filter(where statusstorie = false and statusSeventyFive = true and category not in ('metas')) \"75%\",\n    count(*) filter(where statusstorie = false and statusOneHundred = true and category not in ('metas')) \"100%\"\nfrom goals ",
+          "rawSql": "select\n    now() as Time,\n    count(*) \n    filter(\n    where statusstorie = false \n    and space = 'personal'\n    and statusTwentyFive = false\n    and statusFifty = false  \n    and statusSeventyFive = false \n    and statusOneHundred = false\n    and category not in ('metas'))  \"0%\",\n    count(*) filter(where statusstorie = false and statusTwentyFive = true and category not in ('metas') and space = 'personal')  \"25%\",\n    count(*) filter(where statusstorie = false and statusFifty = true and category not in ('metas') and space = 'personal') \"50%\",\n    count(*) filter(where statusstorie = false and statusSeventyFive = true and category not in ('metas') and space = 'personal') \"75%\",\n    count(*) filter(where statusstorie = false and statusOneHundred = true and category not in ('metas') and space = 'personal') \"100%\"\nfrom goals ",
           "refId": "A",
           "select": [
             [
@@ -1399,7 +1399,7 @@
     {
       "aliasColors": {
         "0%": "#E02F44",
-        "100%": "#5794F2",
+        "100%": "#8AB8FF",
         "25%": "#FF9830",
         "50%": "#FADE2A",
         "75%": "#73BF69"
@@ -1411,7 +1411,7 @@
         "threshold": 0
       },
       "datasource": "PostgreSQL",
-      "description": "No include 'metas'",
+      "description": "only 'metas' ",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -1509,7 +1509,7 @@
         "x": 16,
         "y": 9
       },
-      "id": 28,
+      "id": 18,
       "interval": null,
       "legend": {
         "percentage": true,
@@ -1529,7 +1529,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\n    now() as Time,\n    count(*) \n    filter(\n    where statusstorie = false \n    and statusTwentyFive = false\n    and statusFifty = false  \n    and statusSeventyFive = false \n    and statusOneHundred = false\n    and category not in ('metas'))  \"0%\",\n    count(*) filter(where statusstorie = false and statusTwentyFive = true and category not in ('metas'))  \"25%\",\n    count(*) filter(where statusstorie = false and statusFifty = true and category not in ('metas')) \"50%\",\n    count(*) filter(where statusstorie = false and statusSeventyFive = true and category not in ('metas')) \"75%\",\n    count(*) filter(where statusstorie = false and statusOneHundred = true and category not in ('metas')) \"100%\"\nfrom goals ",
+          "rawSql": "select\n    now() as Time,\n    count(*) \n    filter(\n    where statusstorie = false \n    and space = 'personal'\n    and statusTwentyFive = false\n    and statusFifty = false  \n    and statusSeventyFive = false \n    and statusOneHundred = false\n    and category in ('metas'))  \"0%\",\n    count(*) filter(where statusstorie = false and statusTwentyFive = true and category in ('metas') and space = 'personal')  \"25%\",\n    count(*) filter(where statusstorie = false and statusFifty = true and category in ('metas') and space = 'personal') \"50%\",\n    count(*) filter(where statusstorie = false and statusSeventyFive = true and category in ('metas') and space = 'personal') \"75%\",\n    count(*) filter(where statusstorie = false and statusOneHundred = true and category in ('metas') and space = 'personal') \"100%\"\nfrom goals ",
           "refId": "A",
           "select": [
             [
@@ -1553,7 +1553,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Total Progress",
+      "title": "Goal Progress",
       "type": "grafana-piechart-panel",
       "valueName": "total"
     },
@@ -1698,7 +1698,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT startstorie as Time, category, cast(count(*) as int) FROM goals_history group by category, Time",
+          "rawSql": "SELECT startstorie as Time, category, cast(count(*) as int) FROM goals_history \nwhere space = 'personal'\ngroup by category, Time",
           "refId": "A",
           "select": [
             [
@@ -1767,9 +1767,12 @@
       "aliasColors": {
         "0%": "#E02F44",
         "100%": "#8AB8FF",
-        "25%": "#FF9830",
-        "50%": "#FADE2A",
-        "75%": "#73BF69"
+        "25%": "#FFB357",
+        "50%": "#FFEE52",
+        "75%": "#96D98D",
+        "Failed": "#E02F44",
+        "Justified": "#FF9830",
+        "Sucess": "#73BF69"
       },
       "breakPoint": "50%",
       "cacheTimeout": null,
@@ -1778,7 +1781,7 @@
         "threshold": 0
       },
       "datasource": "PostgreSQL",
-      "description": "only 'metas' ",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -1876,7 +1879,7 @@
         "x": 16,
         "y": 15
       },
-      "id": 18,
+      "id": 26,
       "interval": null,
       "legend": {
         "percentage": true,
@@ -1896,7 +1899,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\n    now() as Time,\n    count(*) \n    filter(\n    where statusstorie = false \n    and statusTwentyFive = false\n    and statusFifty = false  \n    and statusSeventyFive = false \n    and statusOneHundred = false\n    and category in ('metas'))  \"0%\",\n    count(*) filter(where statusstorie = false and statusTwentyFive = true and category in ('metas'))  \"25%\",\n    count(*) filter(where statusstorie = false and statusFifty = true and category in ('metas')) \"50%\",\n    count(*) filter(where statusstorie = false and statusSeventyFive = true and category in ('metas')) \"75%\",\n    count(*) filter(where statusstorie = false and statusOneHundred = true and category in ('metas')) \"100%\"\nfrom goals ",
+          "rawSql": "select\n    now() as Time,\n    count(*) filter(where status in ('failed') and space = 'personal')  \"Failed\",\n    count(*) filter(where status not in ('failed') and space = 'personal') \"Sucess\"\nfrom goals ",
           "refId": "A",
           "select": [
             [
@@ -1920,7 +1923,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Goal Progress",
+      "title": "Target Progress",
       "type": "grafana-piechart-panel",
       "valueName": "total"
     },
@@ -1944,7 +1947,7 @@
         "threshold": 0
       },
       "datasource": "PostgreSQL",
-      "description": "only 'metas' ",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -2062,7 +2065,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\n    now() as Time,\n    category,\n    count(*)\nfrom exception\ngroup by category",
+          "rawSql": "select\n    now() as Time,\n    category,\n    count(*)\nfrom exception\nwhere space = 'personal'\ngroup by category",
           "refId": "A",
           "select": [
             [
@@ -2110,7 +2113,7 @@
         "threshold": 0
       },
       "datasource": "PostgreSQL",
-      "description": "only 'metas' ",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -2228,7 +2231,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\n    now() as Time,\n    reason,\n    count(*)\nfrom exception \ngroup by reason",
+          "rawSql": "select\n    now() as Time,\n    reason,\n    count(*)\nfrom exception\nwhere space = 'personal'\ngroup by reason",
           "refId": "A",
           "select": [
             [
@@ -2259,13 +2262,12 @@
     {
       "aliasColors": {
         "0%": "#E02F44",
-        "100%": "#8AB8FF",
-        "25%": "#FFB357",
-        "50%": "#FFEE52",
-        "75%": "#96D98D",
-        "Failed": "#E02F44",
-        "Justified": "#FF9830",
-        "Sucess": "#73BF69"
+        "100%": "#5794F2",
+        "25%": "#FF9830",
+        "50%": "#FADE2A",
+        "75%": "#73BF69",
+        "Justified": "#73BF69",
+        "Not Justified": "#F2495C"
       },
       "breakPoint": "50%",
       "cacheTimeout": null,
@@ -2274,7 +2276,7 @@
         "threshold": 0
       },
       "datasource": "PostgreSQL",
-      "description": "only 'metas' ",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -2372,7 +2374,7 @@
         "x": 16,
         "y": 21
       },
-      "id": 26,
+      "id": 28,
       "interval": null,
       "legend": {
         "percentage": true,
@@ -2392,7 +2394,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\n    now() as Time,\n    count(*) filter(where status in ('failed'))  \"Failed\",\n    count(*) filter(where status not in ('failed')) \"Sucess\",\n    count(*) filter(where status in ('justified')) \"Justified\"\nfrom goals ",
+          "rawSql": "select\n    now() as Time,\n    count(*) filter(where justified = true and space = 'personal')  \"Justified\",\n    count(*) filter(where justified = false and space = 'personal') \"Not Justified\"\nfrom exception ",
           "refId": "A",
           "select": [
             [
@@ -2416,7 +2418,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Target Progress",
+      "title": " Error evaluation",
       "type": "grafana-piechart-panel",
       "valueName": "total"
     },
@@ -2430,7 +2432,2398 @@
         "y": 27
       },
       "id": 10,
-      "panels": [],
+      "panels": [
+        {
+          "datasource": "PostgreSQL",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "count"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "light-blue",
+                          "value": null
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 2
+          },
+          "id": 31,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "pluginVersion": "7.0.3",
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT count(*) FROM goals WHERE statusstorie = false and space = 'corporate'",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Stories Open",
+          "type": "stat"
+        },
+        {
+          "datasource": "PostgreSQL",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "count"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "light-blue",
+                          "value": null
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 4,
+            "y": 2
+          },
+          "id": 32,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "pluginVersion": "7.0.3",
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT count(*) FROM goals WHERE statusstorie = false and status = 'highlight' and space = 'corporate'",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Highlight",
+          "type": "stat"
+        },
+        {
+          "datasource": "PostgreSQL",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "count"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "light-red",
+                          "value": null
+                        },
+                        {
+                          "color": "light-green",
+                          "value": 2
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 8,
+            "y": 2
+          },
+          "id": 33,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "pluginVersion": "7.0.3",
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT count(*) FROM goals WHERE statusstorie = True and space = 'corporate'",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Stories Complete",
+          "type": "stat"
+        },
+        {
+          "datasource": "PostgreSQL",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "percentage",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "metrics"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "percentage",
+                      "steps": [
+                        {
+                          "color": "light-red",
+                          "value": null
+                        },
+                        {
+                          "color": "light-green",
+                          "value": 50
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "unit",
+                    "value": "percentunit"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 12,
+            "y": 2
+          },
+          "id": 34,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "pluginVersion": "7.0.3",
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "select\n    avg((category = 'objetivo' and statusstorie = false and space = 'corporate')::int) metrics\nfrom goals ",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": " Commitment",
+          "type": "stat"
+        },
+        {
+          "datasource": "PostgreSQL",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "percentage",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Backlog"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "percentage",
+                      "steps": [
+                        {
+                          "color": "light-green",
+                          "value": null
+                        },
+                        {
+                          "color": "light-red",
+                          "value": 70
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "unit",
+                    "value": "percentunit"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 16,
+            "y": 2
+          },
+          "id": 12,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "pluginVersion": "7.0.3",
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "select\n    avg((category not in ('objetivos') and statusstorie = false and space = 'corporate')::int) \"Backlog\"\nfrom goals ",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": " Backlog",
+          "type": "stat"
+        },
+        {
+          "datasource": "PostgreSQL",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "percentage",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Backlog"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "percentage",
+                      "steps": [
+                        {
+                          "color": "light-green",
+                          "value": null
+                        },
+                        {
+                          "color": "light-red",
+                          "value": 70
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "unit",
+                    "value": "percentunit"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 20,
+            "y": 2
+          },
+          "id": 36,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "pluginVersion": "7.0.3",
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "select\n    avg((category not in ('justified') and category in ('failed') and statusstorie = true and space = 'corporate')::int) \"Backlog\"\nfrom goals ",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Failed Target",
+          "type": "stat"
+        },
+        {
+          "datasource": "PostgreSQL",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Not Started"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "light-green",
+                          "value": null
+                        },
+                        {
+                          "color": "light-red",
+                          "value": 10
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "gradient-gauge"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Started"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "light-red",
+                          "value": null
+                        },
+                        {
+                          "color": "light-green",
+                          "value": 2
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "gradient-gauge"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": null
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 8,
+            "x": 0,
+            "y": 6
+          },
+          "id": 37,
+          "options": {
+            "displayMode": "gradient",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showUnfilled": true
+          },
+          "pluginVersion": "7.0.3",
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "select\n    count(*) filter(where statusTwentyFive in ('true') and space = 'corporate') as \"Started\",\n    count(*) filter(where statusTwentyFive in ('false') and space = 'corporate') as \"Not Started\"\nfrom goals ",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "type": "bargauge"
+        },
+        {
+          "datasource": "PostgreSQL",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null
+              },
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "operator": "",
+                  "text": "",
+                  "to": "",
+                  "type": 1,
+                  "value": ""
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "No Prioritized"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "green",
+                          "value": null
+                        },
+                        {
+                          "color": "red",
+                          "value": 5
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Prioritized"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "light-red",
+                          "value": null
+                        },
+                        {
+                          "color": "light-green",
+                          "value": 3
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Backlog"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "percentunit"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 8,
+            "x": 8,
+            "y": 6
+          },
+          "id": 38,
+          "options": {
+            "displayMode": "gradient",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showUnfilled": true
+          },
+          "pluginVersion": "7.0.3",
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "select\n    count(*) filter(where statusstorie = false and category not in ('objetivos') and space = 'corporate')  \"No Prioritized\",\n    count(*) filter(where statusstorie = false and category in ('objetivos') and space = 'corporate') \"Prioritized\"\nfrom goals ",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "type": "bargauge"
+        },
+        {
+          "datasource": "PostgreSQL",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null
+              },
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "operator": "",
+                  "text": "",
+                  "to": "",
+                  "type": 1,
+                  "value": ""
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "1 month"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "green",
+                          "value": null
+                        },
+                        {
+                          "color": "red",
+                          "value": 14
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "3 month"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "light-green",
+                          "value": null
+                        },
+                        {
+                          "color": "light-red",
+                          "value": 7
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "6 month"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "light-green",
+                          "value": null
+                        },
+                        {
+                          "color": "light-red",
+                          "value": 2
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 8,
+            "x": 16,
+            "y": 6
+          },
+          "id": 39,
+          "options": {
+            "displayMode": "gradient",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showUnfilled": true
+          },
+          "pluginVersion": "7.0.3",
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "select\n    count(*) filter(where startStorie <= date_trunc('month', now()) - interval '1 month' and space = 'corporate')  \"1 month\",\n    count(*) filter(where startStorie <= date_trunc('month', now()) - interval '3 month' and space = 'corporate')  \"3 month\",\n    count(*) filter(where startStorie <= date_trunc('month', now()) - interval '6 month' and space = 'corporate')  \"6 month\"\nfrom goals ",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "type": "bargauge"
+        },
+        {
+          "aliasColors": {
+            "cursos": "#F2495C",
+            "faculdade": "#FFA6B0",
+            "livros": "#5794F2",
+            "metas": "#73BF69",
+            "profissionais": "#FADE2A",
+            "saúde": "#FF9830",
+            "treinos": "#B877D9"
+          },
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": "PostgreSQL",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null
+              },
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "operator": "",
+                  "text": "",
+                  "to": "",
+                  "type": 1,
+                  "value": ""
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "stories"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "semi-dark-blue",
+                          "value": null
+                        },
+                        {
+                          "color": "light-blue",
+                          "value": 5
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "gradient-gauge"
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Total"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "category"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Category"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "metrics"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "percentunit"
+                  }
+                ]
+              }
+            ]
+          },
+          "fontSize": "80%",
+          "format": "short",
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 0,
+            "y": 10
+          },
+          "id": 40,
+          "interval": null,
+          "legend": {
+            "percentage": true,
+            "show": true,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 1,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.0.3",
+          "strokeWidth": "0",
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "select\n    now() as Time,\n    category,\n    count(category) filter(where statusstorie = false and space = 'corporate')  stories\nfrom goals \ngroup by category\norder by stories desc",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Demand",
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        },
+        {
+          "aliasColors": {
+            "0%": "#E02F44",
+            "100%": "#5794F2",
+            "25%": "#FF9830",
+            "50%": "#FADE2A",
+            "75%": "#73BF69"
+          },
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": "PostgreSQL",
+          "description": "No include 'metas'",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null
+              },
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "operator": "",
+                  "text": "",
+                  "to": "",
+                  "type": 1,
+                  "value": ""
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "stories"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "semi-dark-blue",
+                          "value": null
+                        },
+                        {
+                          "color": "light-blue",
+                          "value": 5
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "gradient-gauge"
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Total"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "category"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Category"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "metrics"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "percentunit"
+                  }
+                ]
+              }
+            ]
+          },
+          "fontSize": "80%",
+          "format": "short",
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 8,
+            "y": 10
+          },
+          "id": 41,
+          "interval": null,
+          "legend": {
+            "percentage": true,
+            "show": true,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 1,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.0.3",
+          "strokeWidth": "0",
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "select\n    now() as Time,\n    count(*) \n    filter(\n    where statusstorie = false \n    and space = 'corporate'\n    and statusTwentyFive = false\n    and statusFifty = false  \n    and statusSeventyFive = false \n    and statusOneHundred = false\n    and category not in ('metas'))  \"0%\",\n    count(*) filter(where statusstorie = false and space = 'corporate' and statusTwentyFive = true and category not in ('metas'))  \"25%\",\n    count(*) filter(where statusstorie = false and space = 'corporate' and statusFifty = true and category not in ('metas')) \"50%\",\n    count(*) filter(where statusstorie = false and space = 'corporate' and statusSeventyFive = true and category not in ('metas')) \"75%\",\n    count(*) filter(where statusstorie = false and space = 'corporate' and statusOneHundred = true and category not in ('metas')) \"100%\"\nfrom goals ",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Total Progress",
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        },
+        {
+          "aliasColors": {
+            "0%": "#E02F44",
+            "100%": "#8AB8FF",
+            "25%": "#FF9830",
+            "50%": "#FADE2A",
+            "75%": "#73BF69"
+          },
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": "PostgreSQL",
+          "description": "only 'metas' ",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null
+              },
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "operator": "",
+                  "text": "",
+                  "to": "",
+                  "type": 1,
+                  "value": ""
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "stories"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "semi-dark-blue",
+                          "value": null
+                        },
+                        {
+                          "color": "light-blue",
+                          "value": 5
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "gradient-gauge"
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Total"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "category"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Category"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "metrics"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "percentunit"
+                  }
+                ]
+              }
+            ]
+          },
+          "fontSize": "80%",
+          "format": "short",
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 16,
+            "y": 10
+          },
+          "id": 42,
+          "interval": null,
+          "legend": {
+            "percentage": true,
+            "show": true,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 1,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.0.3",
+          "strokeWidth": "0",
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "select\n    now() as Time,\n    count(*) \n    filter(\n    where statusstorie = false \n    and space = 'corporate'\n    and statusTwentyFive = false\n    and statusFifty = false  \n    and statusSeventyFive = false \n    and statusOneHundred = false\n    and category in ('metas'))  \"0%\",\n    count(*) filter(where statusstorie = false and space = 'corporate' and statusTwentyFive = true and category in ('metas'))  \"25%\",\n    count(*) filter(where statusstorie = false and space = 'corporate' and statusFifty = true and category in ('metas')) \"50%\",\n    count(*) filter(where statusstorie = false and space = 'corporate' and statusSeventyFive = true and category in ('metas')) \"75%\",\n    count(*) filter(where statusstorie = false and space = 'corporate' and statusOneHundred = true and category in ('metas')) \"100%\"\nfrom goals ",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Goal Progress",
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "PostgreSQL",
+          "decimals": 0,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null
+              },
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "operator": "",
+                  "text": "",
+                  "to": "",
+                  "type": 1,
+                  "value": ""
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "count"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "semi-dark-blue",
+                          "value": null
+                        },
+                        {
+                          "color": "light-blue",
+                          "value": 5
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "gradient-gauge"
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Total"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "category"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Category"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Category"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": null
+                  }
+                ]
+              }
+            ]
+          },
+          "fill": 3,
+          "fillGradient": 6,
+          "gridPos": {
+            "h": 6,
+            "w": 16,
+            "x": 0,
+            "y": 16
+          },
+          "hiddenSeries": false,
+          "id": 43,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": 150,
+            "total": true,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 3,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pluginVersion": "7.0.3",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": true,
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT startstorie as Time, category, cast(count(*) as int) FROM goals_history \nwhere space = 'corporate'\ngroup by category, Time",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "none",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "decimals": 0,
+              "format": "none",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": 0
+          }
+        },
+        {
+          "aliasColors": {
+            "0%": "#E02F44",
+            "100%": "#8AB8FF",
+            "25%": "#FFB357",
+            "50%": "#FFEE52",
+            "75%": "#96D98D",
+            "Failed": "#E02F44",
+            "Justified": "#FF9830",
+            "Sucess": "#73BF69"
+          },
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": "PostgreSQL",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null
+              },
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "operator": "",
+                  "text": "",
+                  "to": "",
+                  "type": 1,
+                  "value": ""
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "stories"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "semi-dark-blue",
+                          "value": null
+                        },
+                        {
+                          "color": "light-blue",
+                          "value": 5
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "gradient-gauge"
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Total"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "category"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Category"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "metrics"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "percentunit"
+                  }
+                ]
+              }
+            ]
+          },
+          "fontSize": "80%",
+          "format": "short",
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 16,
+            "y": 16
+          },
+          "id": 44,
+          "interval": null,
+          "legend": {
+            "percentage": true,
+            "show": true,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 1,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.0.3",
+          "strokeWidth": "0",
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "select\n    now() as Time,\n    count(*) filter(where status in ('failed') and space = 'corporate')  \"Failed\",\n    count(*) filter(where status not in ('failed') and space = 'corporate') \"Sucess\"\nfrom goals ",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Target Progress",
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        },
+        {
+          "aliasColors": {
+            "0%": "#E02F44",
+            "100%": "#8AB8FF",
+            "25%": "#FFB357",
+            "50%": "#FFEE52",
+            "75%": "#96D98D",
+            "Failed": "#E02F44",
+            "Justified": "#FF9830",
+            "Sucess": "#73BF69",
+            "livros": "#73BF69",
+            "treinos": "#5794F2"
+          },
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": "PostgreSQL",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null
+              },
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "operator": "",
+                  "text": "",
+                  "to": "",
+                  "type": 1,
+                  "value": ""
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "stories"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "semi-dark-blue",
+                          "value": null
+                        },
+                        {
+                          "color": "light-blue",
+                          "value": 5
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "gradient-gauge"
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Total"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "category"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Category"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "metrics"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "percentunit"
+                  }
+                ]
+              }
+            ]
+          },
+          "fontSize": "80%",
+          "format": "short",
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 0,
+            "y": 22
+          },
+          "id": 45,
+          "interval": null,
+          "legend": {
+            "percentage": true,
+            "show": true,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 1,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.0.3",
+          "strokeWidth": "0",
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "select\n    now() as Time,\n    category,\n    count(*)\nfrom exception\nwhere space = 'corporate'\ngroup by category",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": " Cartegory Failures",
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        },
+        {
+          "aliasColors": {
+            "0%": "#E02F44",
+            "100%": "#8AB8FF",
+            "25%": "#FFB357",
+            "50%": "#FFEE52",
+            "75%": "#96D98D",
+            "Failed": "#E02F44",
+            "Justified": "#FF9830",
+            "Sucess": "#73BF69",
+            "others": "#FADE2A",
+            "procrastination": "#F2495C"
+          },
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": "PostgreSQL",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null
+              },
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "operator": "",
+                  "text": "",
+                  "to": "",
+                  "type": 1,
+                  "value": ""
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "stories"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "semi-dark-blue",
+                          "value": null
+                        },
+                        {
+                          "color": "light-blue",
+                          "value": 5
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "gradient-gauge"
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Total"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "category"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Category"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "metrics"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "percentunit"
+                  }
+                ]
+              }
+            ]
+          },
+          "fontSize": "80%",
+          "format": "short",
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 8,
+            "y": 22
+          },
+          "id": 46,
+          "interval": null,
+          "legend": {
+            "percentage": true,
+            "show": true,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 1,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.0.3",
+          "strokeWidth": "0",
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "select\n    now() as Time,\n    reason,\n    count(*)\nfrom exception \nwhere space = 'corporate'\ngroup by reason",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": " Failure Reason",
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        },
+        {
+          "aliasColors": {
+            "0%": "#E02F44",
+            "100%": "#5794F2",
+            "25%": "#FF9830",
+            "50%": "#FADE2A",
+            "75%": "#73BF69",
+            "Justified": "#73BF69",
+            "Not Justified": "#F2495C"
+          },
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": "PostgreSQL",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null
+              },
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "operator": "",
+                  "text": "",
+                  "to": "",
+                  "type": 1,
+                  "value": ""
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "stories"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "semi-dark-blue",
+                          "value": null
+                        },
+                        {
+                          "color": "light-blue",
+                          "value": 5
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "gradient-gauge"
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Total"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "category"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Category"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "metrics"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "percentunit"
+                  }
+                ]
+              }
+            ]
+          },
+          "fontSize": "80%",
+          "format": "short",
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 16,
+            "y": 22
+          },
+          "id": 47,
+          "interval": null,
+          "legend": {
+            "percentage": true,
+            "show": true,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 1,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.0.3",
+          "strokeWidth": "0",
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "select\n    now() as Time,\n    count(*) filter(where justified = true and space = 'corporate')  \"Justified\",\n    count(*) filter(where justified = false and space = 'corporate') \"Not Justified\"\nfrom exception ",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": " Error evaluation",
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        }
+      ],
       "title": "Corporate",
       "type": "row"
     }
@@ -2462,5 +4855,5 @@
   "timezone": "utc",
   "title": "Goals",
   "uid": "mbsZ9YiMk",
-  "version": 71
+  "version": 77
 }
