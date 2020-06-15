@@ -15,7 +15,8 @@ statusSeventyFive BOOLEAN,
 oneHundred int,
 statusOneHundred BOOLEAN,
 category varchar,
-status varchar
+status varchar,
+space varchar
 );
 
 create table goals_history(
@@ -33,7 +34,8 @@ statusSeventyFive BOOLEAN,
 oneHundred int,
 statusOneHundred BOOLEAN,
 category varchar,
-status varchar
+status varchar,
+space varchar
 );
 
 create table exception(
@@ -41,5 +43,6 @@ id int primary key,
 category varchar,
 reason varchar,
 justified boolean,
+space varchar,
 date_insert timestamp
 );
